@@ -13,7 +13,6 @@ npm install
 
 There are several scripts defined in the package.json file that can be used to interact with this project:
 
- - `npm run test`: This command will echo the message "Error: no test specified" and then exit.
  - `npm run build`: This command will clean the project (remove the dist directory) and then compile the TypeScript code into JavaScript using the TypeScript compiler.
  - `npm run start`: This command will first build the project and then start it by running the compiled JavaScript code.
  - `npm run clean`: This command will remove the dist directory.

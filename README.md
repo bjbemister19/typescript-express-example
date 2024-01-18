@@ -17,6 +17,7 @@ There are several scripts defined in the package.json file that can be used to i
  - `npm run build`: This command will clean the project (remove the dist directory) and then compile the TypeScript code into JavaScript using the TypeScript compiler.
  - `npm run start`: This command will first build the project and then start it by running the compiled JavaScript code.
  - `npm run clean`: This command will remove the dist directory.
+ - `npm run lint`: This command will run ESLint and tell you if there are any problems with the project
 
 If you like using the debugger, here is an example launch.json
 ```json

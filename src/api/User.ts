@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { type User, UserCodec, ErrorResponse } from '../models'
+import { error, success } from './REST'
+import { type User, UserCodec } from '../models'
 import { isLeft } from 'fp-ts/lib/Either'
 
 const router = Router()
@@ -13,7 +14,7 @@ let DEMO_USER: User = {
 router.post('/', (req, res) => {
   const validationResult = UserCodec.decode(req.body)
   if (isLeft(validationResult)) {
-    return res.status(400).json(new ErrorResponse('User data is not formatted correctly'))
+    return res.status(400).json(error('User data is not formatted correctly'))
   }
   const user = validationResult.right
 
@@ -24,7 +25,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (_req, res) => {
-  return res.json(DEMO_USER)
+  return res.json(success(DEMO_USER))
 })
 
 export default router

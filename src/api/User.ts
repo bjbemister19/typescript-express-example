@@ -57,7 +57,7 @@ router.get('/:id', (req, res) => {
  *  - Be sure to validate the body of the request to ensure that the user data is formatted correctly.
  *  - Check your implementation by using postman to send a PUT request to http://localhost:3000/api/user/{{some_id}}
  *
- * 2. Implement DELETE /user/:id
+ * 2. Implement DELETE /api/user/:id
  *  - Delete user should delete the user with the given ID.
  *  - Check your implementation by using postman to send a DELETE request to http://localhost:3000/api/user/{{some_id}}
  */

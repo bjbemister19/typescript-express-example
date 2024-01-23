@@ -40,16 +40,20 @@ If you like using the debugger, here is an example launch.json
 }
 ```
 
+## Postman Demo
+
+Import `postman/Demo.postman_collection.json` into postman, and test away!
+
 ## Demo
 
 There are only 2 endpoints for demo purposes
 
 POST User
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"id":2, "name":"Test User", "email":"testuser@example.com"}' http://localhost:5001/api/user
+curl -X POST -H "Content-Type: application/json" -d '{"name":"Test User", "email":"testuser@example.com"}' http://localhost:5001/api/user
 ```
 
 GET User
 ```bash
-curl -X GET http://localhost:5001/api/user
+curl -X GET http://localhost:5001/api/user/12345
 ```

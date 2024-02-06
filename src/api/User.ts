@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import { error, success } from '../utils/REST'
-import { type User, UserCodec } from '../models'
-import { isLeft } from 'fp-ts/lib/Either'
+import { type User, validateUser } from '../models'
 
 const router = Router()
 
@@ -13,12 +12,11 @@ DEMO_USERS.push({
 })
 
 router.post('/', (req, res) => {
-  const validationResult = UserCodec.decode(req.body)
-  if (isLeft(validationResult)) {
+  const user = validateUser(req.body)
+  if (user === null) {
     return res.status(400).json(error('User data is not formatted correctly'))
   }
 
-  const user = validationResult.right
   if ('id' in user) {
     return res.status(400).json(error('User ID will be generated automatically'))
   }

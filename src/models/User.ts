@@ -1,13 +1,23 @@
-import * as t from 'io-ts'
+import Joi from 'joi'
 
-export const UserCodec = t.intersection([
-  t.type({
-    name: t.string,
-    email: t.string
-  }),
-  t.partial({
-    id: t.number
-  })
-])
+type email = string
 
-export type User = t.TypeOf<typeof UserCodec>
+export interface User {
+  id?: number
+  name: string
+  email: email
+}
+
+const UserSchema = Joi.object<User>({
+  id: Joi.number().optional(),
+  name: Joi.string().required(),
+  email: Joi.string().email().required()
+})
+
+export const validateUser = (user: any): User | null => {
+  const { error, value } = UserSchema.validate(user)
+  if (error !== undefined) {
+    return null
+  }
+  return value
+}

@@ -1,5 +1,5 @@
-import { type User, UserCodec } from './User'
+import { type User, validateUser } from './User'
 
 export {
-  type User, UserCodec
+  type User, validateUser
 }

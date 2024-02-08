@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, type Request, type Response } from 'express'
 import { error, success } from '../utils/REST'
 import { type User, validateUser } from '../models'
 
@@ -11,7 +11,7 @@ DEMO_USERS.push({
   email: 'john@doe.com'
 })
 
-router.post('/', (req, res) => {
+router.post('/', (req: Request, res: Response) => {
   const user = validateUser(req.body)
   if (user === null) {
     return res.status(400).json(error('User data is not formatted correctly'))
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
   return res.status(200).json(success(createdUser))
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
   if (Number.isNaN(id)) {
     return res.status(400).json(error('Invalid user ID'))

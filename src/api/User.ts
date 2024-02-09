@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from 'express'
-import { error, success } from '../utils/REST'
+import { error, success } from '../utils/rest'
 import { type User, validateUser } from '../models'
 
 const router = Router()

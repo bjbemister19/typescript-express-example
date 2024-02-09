@@ -1,4 +1,4 @@
-import userRouter from './User'
+import userRouter from './user'
 
 export {
   userRouter

@@ -18,7 +18,17 @@ There are several scripts defined in the package.json file that can be used to i
  - `npm run clean`: This command will remove the dist directory.
  - `npm run lint`: This command will run ESLint and tell you if there are any problems with the project
 
-If you like using the debugger, here is an example launch.json
+Note for Windows (Powershell) Users. The build, start and clean commands above will only work on unix like envitonments, or WSL. If you are using powershell please use the equivilent commands below:
+ - `npm run win-build`
+ - `npm run win-start`
+ - `npm run win-clean`
+
+When testing this myself, I also had to run the following command to allow my machine to run scripts from the command line. Understand the risks before running this command.
+```
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+If your situation allows for it, I would highly recommend using a debugger in place of the above commands, here is an example launch.json which will work in VSCode. To use it, simply click `Run -> Add Configuration`. Select `Node.js` from the list, this will open a text editor. Delete everything from the launch.json file, and paste in the JSON below.
 ```json
 {
   "version": "0.2.0",

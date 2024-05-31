@@ -1,3 +1,7 @@
+# Create file called .integration-test-env and define the following variables
+# export POSTMAN_API_KEY='your-api-key'
+# export POSTMAN_COLLECTION='your-collection'
+
 $envFile = ".integration-test-env"
 
 if (-not (Get-Command postman -ErrorAction SilentlyContinue)) {

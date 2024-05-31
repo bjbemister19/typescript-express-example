@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from 'express'
-import { error, success } from '../utils/rest'
-import { type User, validateUser } from '../models'
+import * as rest from '../utils/rest'
+import Joi from 'joi'
 
 const router = Router()
 
@@ -11,14 +11,29 @@ DEMO_USERS.push({
   email: 'john@doe.com'
 })
 
+type email = string
+
+export interface User {
+  id?: number
+  name: string
+  email: email
+}
+
+const UserSchema = Joi.object<User>({
+  id: Joi.number().optional(),
+  name: Joi.string().required(),
+  email: Joi.string().email().required()
+})
+
 router.post('/', (req: Request, res: Response) => {
-  const user = validateUser(req.body)
-  if (user === null) {
-    return res.status(400).json(error('User data is not formatted correctly'))
+  const {error, value} = UserSchema.validate(req.body)
+  if (error !== undefined) {
+    return res.status(400).json(rest.error('User data is not formatted correctly'))
   }
 
+  const user = value;
   if ('id' in user) {
-    return res.status(400).json(error('User ID will be generated automatically'))
+    return res.status(400).json(rest.error('User ID will be generated automatically'))
   }
 
   const id = Math.floor(Math.random() * 1000000)
@@ -29,21 +44,21 @@ router.post('/', (req: Request, res: Response) => {
   }
   DEMO_USERS.push(createdUser)
 
-  return res.status(200).json(success(createdUser))
+  return res.status(200).json(rest.success(createdUser))
 })
 
 router.get('/:id', (req: Request, res: Response) => {
   const id = parseInt(req.params.id)
   if (Number.isNaN(id)) {
-    return res.status(400).json(error('Invalid user ID'))
+    return res.status(400).json(rest.error('Invalid user ID'))
   }
 
   const user = DEMO_USERS.find(u => u.id === id)
   if (user === undefined) {
-    return res.status(404).json(error('User not found'))
+    return res.status(404).json(rest.error('User not found'))
   }
 
-  return res.status(200).json(success(user))
+  return res.status(200).json(rest.success(user))
 })
 
 /**

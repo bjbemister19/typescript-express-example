@@ -1,5 +1,5 @@
 import express from 'express'
-import { userRouter } from './api'
+import userRouter from './api/user'
 
 const PORT = process.env.PORT ?? 5001
 

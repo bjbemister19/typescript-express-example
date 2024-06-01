@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && ./node_modules/.bin/tsc",
-    "start": "npm run build && node dist/index.js",
+    "start": "node dist/index.js",
     "clean": "rm -rf dist",
     "win-build": "powershell npm run win-clean; tsc",
     "win-start": "powershell npm run win-build; node dist/index.js",

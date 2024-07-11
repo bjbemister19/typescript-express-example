@@ -13,7 +13,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint-fix": "eslint . --fix --ext .ts,.tsx",
     "test": "jest",
-    "int-test" :"./integration-test.sh",
+    "int-test": "./integration-test.sh",
     "win-int-test": "powershell -executionpolicy bypass -File .\\integration-test.ps1"
   },
   "jest": {
@@ -25,17 +25,17 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.13.0",
-    "@typescript-eslint/eslint-plugin": "^7.11.0",
-    "@typescript-eslint/parser": "^7.11.0",
+    "@types/node": "^20.14.10",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
-    "ts-jest": "^29.1.4",
+    "ts-jest": "^29.2.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "joi": "^17.13.1"
+    "joi": "^17.13.3"
   }
 }

@@ -1,4 +1,4 @@
-import { type Request, type Response } from 'express'
+import { type RequestHandler } from 'express'
 import * as rest from '../utils/rest'
 import Joi from 'joi'
 
@@ -23,15 +23,15 @@ const UserSchema = Joi.object<User>({
   email: Joi.string().email().required()
 })
 
-export const createUser = (req: Request, res: Response) => {
+export const createUser: RequestHandler = (req, res): void => {
     const {error, value} = UserSchema.validate(req.body)
     if (error !== undefined) {
-      return res.status(400).json(rest.error('User data is not formatted correctly'))
+      res.status(400).json(rest.error('User data is not formatted correctly'))
     }
   
     const user = value;
     if ('id' in user) {
-      return res.status(400).json(rest.error('User ID will be generated automatically'))
+      res.status(400).json(rest.error('User ID will be generated automatically'))
     }
   
     const id = Math.floor(Math.random() * 1000000)
@@ -42,19 +42,19 @@ export const createUser = (req: Request, res: Response) => {
     }
     DEMO_USERS.push(createdUser)
   
-    return res.status(200).json(rest.success(createdUser))
+    res.status(200).json(rest.success(createdUser))
 }
 
-export const getUser = (req: Request, res: Response) => {
+export const getUser: RequestHandler = (req, res): void => {
     const id = parseInt(req.params.id)
   if (Number.isNaN(id)) {
-    return res.status(400).json(rest.error('Invalid user ID'))
+    res.status(400).json(rest.error('Invalid user ID'))
   }
 
   const user = DEMO_USERS.find(u => u.id === id)
   if (user === undefined) {
-    return res.status(404).json(rest.error('User not found'))
+    res.status(404).json(rest.error('User not found'))
   }
 
-  return res.status(200).json(rest.success(user))
+  res.status(200).json(rest.success(user))
 }

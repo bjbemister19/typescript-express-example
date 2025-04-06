@@ -1,5 +1,5 @@
 # Stage 1: Build the TypeScript project
-FROM node:22.14.0-lts-alpine AS builder
+FROM node:22.14.0-alpine AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ RUN npm install
 RUN npm run build
 
 # Stage 2: Production image
-FROM node:22.14.0-lts-alpine AS production
+FROM node:22.14.0-alpine AS production
 
 WORKDIR /app
 

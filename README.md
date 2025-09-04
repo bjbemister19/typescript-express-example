@@ -1,4 +1,4 @@
-# tsexamp
+# tsexample
 
 This is a simple guide on how to use this repository.
 

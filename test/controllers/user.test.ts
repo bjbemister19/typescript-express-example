@@ -30,7 +30,8 @@ describe('createUser', () => {
         const id = Math.floor(0.5 * 1000000)
         jest.spyOn(Math, 'random').mockReturnValue(0.5);
 
-        UserController.createUser(req, res);
+    const next = jest.fn();
+    UserController.createUser(req, res, next);
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith({
             status: "success",
@@ -46,7 +47,8 @@ describe('createUser', () => {
         let req = mockRequest({ name: 'John Doe' });
         let res = mockResponse();
 
-        UserController.createUser(req, res);
+    const next = jest.fn();
+    UserController.createUser(req, res, next);
         expect(res.status).toHaveBeenCalledWith(400)
         expect(res.json).toHaveBeenCalledWith({
             status: "error",

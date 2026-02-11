@@ -1,5 +1,5 @@
 import { type RequestHandler } from 'express'
-import * as rest from '../utils/rest'
+import * as rest from '../utils/rest.js'
 import Joi from 'joi'
 
 const DEMO_USERS: User[] = []

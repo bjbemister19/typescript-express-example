@@ -1,11 +1,12 @@
-
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2022",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "outDir": "dist",
     "strict": true,
-    "esModuleInterop": true,
+    "isolatedModules": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts"

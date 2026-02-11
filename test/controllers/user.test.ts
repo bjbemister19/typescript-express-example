@@ -1,4 +1,5 @@
-import * as UserController from '../../src/controllers/user'
+import { jest } from '@jest/globals'
+import * as UserController from '../../src/controllers/user.js'
 import { Request, Response } from 'express';
 
 

@@ -2,63 +2,73 @@
 
 This is a simple guide on how to use this repository.
 
+## Prerequisites
+
+This project uses [Bun](https://bun.sh) as its runtime and package manager. Install it from https://bun.sh.
+
 ## Installation
 
 Install the necessary dependencies:
 ```bash
-npm install
+bun install
 ```
 
 ## Running
 
 There are several scripts defined in the package.json file that can be used to interact with this project:
 
- - `npm run build`: This command will clean the project (remove the dist directory) and then compile the TypeScript code into JavaScript using the TypeScript compiler.
- - `npm run start`: This command will first build the project and then start it by running the compiled JavaScript code.
- - `npm run clean`: This command will remove the dist directory.
- - `npm run lint`: This command will run ESLint and tell you if there are any problems with the project
- - `npm test`: This command will run the unit tests using Vitest
+ - `bun run start`: This command will start the server by running the TypeScript source directly (no build step needed).
+ - `bun run typecheck`: This command will run the TypeScript compiler to check for type errors without emitting output.
+ - `bun run lint`: This command will run ESLint and tell you if there are any problems with the project.
+ - `bun run lint-fix`: This command will run ESLint and automatically fix any fixable problems.
+ - `bun run test`: This command will run the unit tests using Vitest.
+ - `bun run int-test`: This command will run the integration tests using Postman (see the Integration Tests section below).
 
-Note for Windows (Powershell) Users. The build, start and clean commands above will only work on unix like envitonments, or WSL. If you are using powershell please use the equivilent commands below:
- - `npm run win-build`
- - `npm run win-start`
- - `npm run win-clean`
+All commands work cross-platform (Linux, macOS, and Windows).
 
-When testing this myself, I also had to run the following command to allow my machine to run scripts from the command line. Understand the risks before running this command.
-```
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-If your situation allows for it, I would highly recommend using a debugger in place of the above commands, here is an example launch.json which will work in VSCode. To use it, simply click `Run -> Add Configuration`. Select `Node.js` from the list, this will open a text editor. Delete everything from the launch.json file, and paste in the JSON below.
+If your situation allows for it, I would highly recommend using a debugger in place of the above commands. This requires the [Bun for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=oven.bun-vscode) extension. Here is an example launch.json which will work in VSCode/Cursor. To use it, simply click `Run -> Add Configuration`, then delete everything from the launch.json file and paste in the JSON below.
 ```json
 {
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "type": "bun",
       "request": "launch",
       "name": "Debug Server",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/tsx",
-      "args": [
-        "${workspaceFolder}/src/index.ts"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"]
+      "program": "${workspaceFolder}/src/index.ts",
+      "stopOnEntry": false
     },
     {
-      "type": "node",
+      "type": "bun",
       "request": "launch",
       "name": "Debug Tests",
       "program": "${workspaceFolder}/node_modules/.bin/vitest",
       "args": ["run"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"]
+      "stopOnEntry": false
     }
   ]
 }
 ```
+
+## Integration Tests
+
+To run the integration tests, create a file called `.integration-test-env` in the project root and define the following variables:
+```bash
+export POSTMAN_API_KEY='your-api-key'
+export POSTMAN_COLLECTION='your-collection'
+```
+
+Then run:
+```bash
+bun run int-test
+```
+
+On Windows (PowerShell):
+```bash
+bun run win-int-test
+```
+
+This requires the [Postman CLI](https://learning.postman.com/docs/postman-cli/postman-cli-overview/) to be installed.
 
 ## Postman Demo
 

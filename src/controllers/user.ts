@@ -46,7 +46,7 @@ export const createUser: RequestHandler = (req, res): void => {
 }
 
 export const getUser: RequestHandler = (req, res): void => {
-    const id = parseInt(req.params.id)
+  const id = parseInt(req.params.id as string)
   if (Number.isNaN(id)) {
     res.status(400).json(rest.error('Invalid user ID'))
   }

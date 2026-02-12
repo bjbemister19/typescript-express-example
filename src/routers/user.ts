@@ -1,10 +1,12 @@
 import { Router } from 'express'
 import * as UserController from '../controllers/user.js'
+import { asyncHandler } from '../utils/async-handler.js'
 
 const router = Router()
 
-router.post('/', UserController.createUser)
-router.get('/:id', UserController.getUser)
+router.get('/', asyncHandler(UserController.listUsers))
+router.post('/', asyncHandler(UserController.createUser))
+router.get('/:id', asyncHandler(UserController.getUser))
 
 /**
  * Exercise:
@@ -13,11 +15,11 @@ router.get('/:id', UserController.getUser)
  *  - The body of the request will effectively be the same as the post, but instead of creating a new user, you
  *    should find the user that matches the given ID and update the properties of that user.
  *  - Be sure to validate the body of the request to ensure that the user data is formatted correctly.
- *  - Check your implementation by using postman to send a PUT request to http://localhost:3000/api/user/{{some_id}}
+ *  - Check your implementation by using postman to send a PUT request to http://localhost:5001/api/user/{{some_id}}
  *
  * 2. Implement DELETE /api/user/:id
  *  - Delete user should delete the user with the given ID.
- *  - Check your implementation by using postman to send a DELETE request to http://localhost:3000/api/user/{{some_id}}
+ *  - Check your implementation by using postman to send a DELETE request to http://localhost:5001/api/user/{{some_id}}
  */
 
 export default router

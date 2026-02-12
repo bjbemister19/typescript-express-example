@@ -7,7 +7,7 @@ export interface RESTObject {
 export const error = (message: string): RESTObject => {
   return {
     status: 'error',
-    message
+    message,
   }
 }
 
@@ -16,12 +16,12 @@ export const success = (data: any, message?: string): RESTObject => {
     return {
       status: 'success',
       message,
-      data
+      data,
     }
   } else {
     return {
       status: 'success',
-      data
+      data,
     }
   }
 }

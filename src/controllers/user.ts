@@ -1,59 +1,47 @@
-import { type RequestHandler } from 'express'
-import * as rest from '../utils/rest.js'
+import { type Request, type Response } from 'express'
 import Joi from 'joi'
+import * as rest from '../utils/rest.js'
+import * as userStore from '../data/user-store.js'
+import type { CreateUserInput } from '../data/user-store.js'
 
-const DEMO_USERS: User[] = []
-DEMO_USERS.push({
-  id: 12345,
-  name: 'John Doe',
-  email: 'john@doe.com'
-})
-
-type email = string
-
-export interface User {
-  id?: number
-  name: string
-  email: email
-}
-
-const UserSchema = Joi.object<User>({
-  id: Joi.number().optional(),
+const CreateUserSchema = Joi.object<CreateUserInput>({
   name: Joi.string().required(),
-  email: Joi.string().email().required()
-})
+  email: Joi.string().email().required(),
+}).options({ stripUnknown: true })
 
-export const createUser: RequestHandler = (req, res): void => {
-    const {error, value} = UserSchema.validate(req.body)
-    if (error !== undefined) {
-      res.status(400).json(rest.error('User data is not formatted correctly'))
-    }
-  
-    const user = value;
-    if ('id' in user) {
-      res.status(400).json(rest.error('User ID will be generated automatically'))
-    }
-  
-    const id = Math.floor(Math.random() * 1000000)
-  
-    const createdUser = {
-      ...user,
-      id
-    }
-    DEMO_USERS.push(createdUser)
-  
-    res.status(200).json(rest.success(createdUser))
+export const listUsers = async (
+  _req: Request,
+  res: Response,
+): Promise<void> => {
+  const users = await userStore.findAll()
+  res.status(200).json(rest.success(users))
 }
 
-export const getUser: RequestHandler = (req, res): void => {
+export const createUser = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { error, value } = CreateUserSchema.validate(req.body)
+  if (error !== undefined) {
+    res.status(400).json(rest.error('User data is not formatted correctly'))
+    return
+  }
+
+  const user = await userStore.create(value)
+  res.status(201).json(rest.success(user))
+}
+
+export const getUser = async (req: Request, res: Response): Promise<void> => {
   const id = parseInt(req.params.id as string)
   if (Number.isNaN(id)) {
     res.status(400).json(rest.error('Invalid user ID'))
+    return
   }
 
-  const user = DEMO_USERS.find(u => u.id === id)
+  const user = await userStore.findById(id)
   if (user === undefined) {
     res.status(404).json(rest.error('User not found'))
+    return
   }
 
   res.status(200).json(rest.success(user))

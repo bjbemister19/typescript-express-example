@@ -17,6 +17,7 @@ There are several scripts defined in the package.json file that can be used to i
  - `npm run start`: This command will first build the project and then start it by running the compiled JavaScript code.
  - `npm run clean`: This command will remove the dist directory.
  - `npm run lint`: This command will run ESLint and tell you if there are any problems with the project
+ - `npm test`: This command will run the unit tests using Vitest
 
 Note for Windows (Powershell) Users. The build, start and clean commands above will only work on unix like envitonments, or WSL. If you are using powershell please use the equivilent commands below:
  - `npm run win-build`
@@ -37,15 +38,24 @@ If your situation allows for it, I would highly recommend using a debugger in pl
       "type": "node",
       "request": "launch",
       "name": "Debug Server",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/tsx",
       "args": [
-          "--files",
-          "${workspaceFolder}/src/index.ts",
+        "${workspaceFolder}/src/index.ts"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "skipFiles": ["<node_internals>/**"]
-    }    
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Tests",
+      "program": "${workspaceFolder}/node_modules/.bin/vitest",
+      "args": ["run"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    }
   ]
 }
 ```

@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals'
+import { vi } from 'vitest'
 import * as UserController from '../../src/controllers/user.js'
 import { Request, Response } from 'express';
 
@@ -11,8 +11,8 @@ const mockRequest = (body: any) => {
 
 const mockResponse = () => {
     let res = {
-        status: jest.fn(),
-        json: jest.fn()
+        status: vi.fn(),
+        json: vi.fn()
     };
     res.status.mockReturnValue(res);
     res.json.mockReturnValue(res);
@@ -21,7 +21,7 @@ const mockResponse = () => {
 
 describe('createUser', () => {
     beforeEach(() => {
-        jest.clearAllMocks()
+        vi.clearAllMocks()
     })
 
     it('should create user and return 200', () => {
@@ -29,9 +29,9 @@ describe('createUser', () => {
         let res = mockResponse();
         
         const id = Math.floor(0.5 * 1000000)
-        jest.spyOn(Math, 'random').mockReturnValue(0.5);
+        vi.spyOn(Math, 'random').mockReturnValue(0.5);
 
-    const next = jest.fn();
+    const next = vi.fn();
     UserController.createUser(req, res, next);
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith({
@@ -48,7 +48,7 @@ describe('createUser', () => {
         let req = mockRequest({ name: 'John Doe' });
         let res = mockResponse();
 
-    const next = jest.fn();
+    const next = vi.fn();
     UserController.createUser(req, res, next);
         expect(res.status).toHaveBeenCalledWith(400)
         expect(res.json).toHaveBeenCalledWith({

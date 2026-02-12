@@ -13,39 +13,26 @@
     "win-clean": "powershell Remove-Item 'dist' -Recurse -ErrorAction SilentlyContinue",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+    "test": "vitest run",
     "int-test": "./integration-test.sh",
     "win-int-test": "powershell -executionpolicy bypass -File .\\integration-test.ps1"
-  },
-  "jest": {
-    "preset": "ts-jest/presets/default-esm",
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.tsx?$": ["ts-jest", { "useESM": true }]
-    },
-    "moduleNameMapper": {
-      "^(\\.{1,2}/.*)\\.js$": "$1"
-    },
-    "extensionsToTreatAsEsm": [".ts"]
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.38.0",
-    "@types/express": "^5.0.4",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^24.9.1",
-    "@typescript-eslint/eslint-plugin": "^8.46.2",
-    "@typescript-eslint/parser": "^8.46.2",
-    "eslint": "^9.38.0",
-    "jest": "^30.2.0",
-    "ts-jest": "^29.4.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.2",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
+    "eslint": "^9.39.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   },
   "dependencies": {
-    "express": "^5.1.0",
-    "joi": "^18.0.1"
+    "express": "^5.2.1",
+    "joi": "^18.0.2"
   }
 }

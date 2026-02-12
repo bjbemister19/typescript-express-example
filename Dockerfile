@@ -3,7 +3,7 @@ FROM oven/bun:alpine AS builder
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
 # Stage 2: Production image
@@ -11,7 +11,7 @@ FROM oven/bun:alpine AS production
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 
 # Copy source code
